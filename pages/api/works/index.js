@@ -1,5 +1,5 @@
 import connectMongo from "../../../database/conn"
-import { getWorks, postWork, putWork } from "../../../database/controller";
+import { getWorks, postWork, putWork, deleteWork } from "../../../database/controller";
 
 export default async function handler(req, res) {
   connectMongo().catch(()=> res.status(405).json({error:"Error in the Connection"}))
@@ -22,7 +22,8 @@ export default async function handler(req, res) {
         putWork(req,res)
         break;
     case 'DELETE':
-        res.status(200).json({method,name:'DELETE Request'});
+        // res.status(200).json({method,name:'DELETE Request'});
+        deleteWork(req,res)
         break;
     default:
         res.setHeader('Allow',['GET','POST','PUT','DELETE']);

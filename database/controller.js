@@ -13,6 +13,18 @@ export async function getWorks(req,res){
     }
 }
 
+export async function getWork(req,res){
+    try{
+        const { workId } = req.query;
+        if(workId){
+            const work = await Works.findById(workId);
+            res.status(200).json(work)
+        }
+        res.status(404).json({error: "Work not Selected...!"})
+    }catch(error){
+        res.status(404).json({ error:"Cannot get the Work...!"})
+    }
+}
 
 //post
 export async function postWork(req,res){
@@ -39,5 +51,22 @@ export async function putWork(req,res){
         res.status(404).json({error: "Work Not Selected...!"})
     }catch(error){
         res.status(404).json({ error: "Error While Updating the Data...!"})
+    }
+}
+
+//delete
+export async function deleteWork(req,res){
+    try{
+        const {workId} = req.query;
+
+        if(workId){
+            const work = await Works.findByIdAndDelete(workId)
+            return res.status(200).json({ deleted: workId})
+        }
+
+        res.status(404).json({error:"Work Not Seleted...!"})
+
+    }catch(error){
+        res.status(404).json({error: "Error While Deleting the Work..!"})
     }
 }

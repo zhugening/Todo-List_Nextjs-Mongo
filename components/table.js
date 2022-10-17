@@ -1,7 +1,11 @@
 import {BiEdit, BiTrashAlt} from "react-icons/bi"
 import data from '../database/data.json'
+import { getWork } from '../lib/helper'
 
 export default function Table(){
+
+    getWork().then(res=> console.log(res))
+
     return (
         <table className="min-w-full table-auto">
             <thead>
@@ -40,6 +44,7 @@ function Tr({name,text,date,responsibility,status}){
         <tr className="bg-gray-50 text-center">
                     <td className="px-16 py-2 flex flex-row items-center">
                         <img src="" alt="" />
+                        {/* <img src="" alt="" className="h-8 w-8 rounded-full object-cover"/> */}
                         <span className="text-center ml-2 font-semibold">{name}</span>
                     </td>
                     <td className="px-16 py-2">
