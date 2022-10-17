@@ -1,0 +1,18 @@
+[
+    {
+        "id":1,
+        "name": "SN-KT1A",
+        "text":"Oil leagkage",
+        "date":"10.08.2022",
+        "responsibility":"Wutthipan",
+        "status":"Active"
+    },
+    {
+        "id" :2,
+        "name": "SN-KT3A",
+        "text":"Bushing Oil leagkage",
+        "date":"10.08.2022",
+        "responsibility":"Wutthipan",
+        "status":"Inactive"
+    }
+]
