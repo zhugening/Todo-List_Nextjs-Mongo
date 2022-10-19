@@ -1,10 +1,17 @@
 import {BiEdit, BiTrashAlt} from "react-icons/bi"
-import data from '../database/data.json'
+// import data from '../database/data.json'
 import { getWork } from '../lib/helper'
+import { useQuery } from "react-query"
 
 export default function Table(){
 
-    getWork().then(res=> console.log(res))
+    // getWork().then(res=> console.log(res))
+
+    const {isLoading, isError, data, error } = useQuery('works'.getWork)
+
+    if(isLoading) return <div>Work is Loading...</div>;
+    if(isError) return <div>Got Error {error}</div>
+
 
     return (
         <table className="min-w-full table-auto">
