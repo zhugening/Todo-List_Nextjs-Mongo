@@ -2,39 +2,65 @@ import {useReducer} from "react"
 import { BiPlus } from "react-icons/bi"
 import Success from "./success"
 import Bug from "./bug"
+import { useQueryClient, useMutation } from "react-query"
+import { addWork, getWorks } from "../lib/helper"
 
-const formReducer = (state, event)=>{
-    return {
-        ...state,
-        [event.target.name]:event.target.value
+
+// const formReducer = (state, event)=>{
+//     return {
+//         ...state,
+//         [event.target.name]:event.target.value
+//         }
+//     }
+
+export default function AddWorkForm({formData, setFormData}){
+
+    const queryClient = useQueryClient()
+
+    // const [formData, setFormData] = useReducer(formReducer,{})
+    
+    // we use mutation for send post function
+    const addMutation = useMutation(addWork,{
+        onSuccess:()=>{
+            queryClient.prefetchQuery('works',getWorks)
+            console.log("Data Inserted")
         }
-    }
-
-export default function AddWorkForm(){
-
-    const [formData,setFormData] = useReducer(formReducer,{})
+    })
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        if(Object.keys(formData).length == 0)return console.log("Don't have Form Data")
-        console.log(formData)
+        if(Object.keys(formData).length == 0)return console.log("Don't have Form Data");
+        // console.log(formData)
+        let { name,text,date,responsibility,status } = formData;
+
+        const model = {
+            name, text, date, responsibility, status:status ??"Active"
+        }
+
+        addMutation.mutate(model)
+
     }
 
-    if(Object.keys(formData).length > 0)return<Bug message={"Error"}></Bug>
+    // if(Object.keys(formData).length > 0)return<Bug message={"Error"}></Bug>
+    if(addMutation.isLoading) return <div>Loading...!</div>
+    if(addMutation.isError) return <Bug message={addMutation.error.message}></Bug>
+    if(addMutation.isSuccess) return<Success message={"Added Successfully"}></Success>
+
+
 
     return  (
         <form className="grid lg:grid-cols-2 w-4/6 gap-4" onSubmit={handleSubmit}>
             <div className="input-type">
-                <input type="text" onChange={setFormData} name="Transformer Topic" className="border w-full px-5 py-3 focus:outline-none" placeholder="Transformer Topic" />
+                <input type="text" onChange={setFormData} name="name" className="border w-full px-5 py-3 focus:outline-none" placeholder="Device Number" />
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} name="text" className="border w-full px-5 py-3 focus:outline-none" placeholder="Text" />
+                <input type="text" onChange={setFormData} name="text" className="border w-full px-5 py-3 focus:outline-none" placeholder="เหตุความเสียหายของอุปกรณ์" />
             </div>
             <div className="input-type">
                 <input type='date' onChange={setFormData} name="date" className="border px-5 py-3 focus:outline-none rounded-md" placeholder="Date Update"/>
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} name="who" className="border w-full px-5 py-3 focus:outline-none" placeholder="Responsibility" />
+                <input type="text" onChange={setFormData} name="responsibility" className="border w-full px-5 py-3 focus:outline-none" placeholder="ผู้รับผิดชอบ" />
             </div>
 
 
