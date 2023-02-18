@@ -29,9 +29,9 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
     if(isLoading) return <div>Loading.....!</div>
     if(isError) return <div>Error</div>
 
-    const { name,text,date,responsibility,status } = data;
+    const { claim_no, contract_no, egat_sn, claim_booking, device_no, eqiupment, date, responsibility, status } = data;
     // const [formData,setFormData] = useReducer(formReducer,{})
-    console.log(data)
+    // console.log(data)
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -46,12 +46,27 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
     // if(Object.keys(formData).length > 0)return<Bug message={"Error"}></Bug>
 
     return  (
-        <form className="grid lg:grid-cols-2 w-4/6 gap-4" onSubmit={handleSubmit}>
+        <form className="grid lg:grid-cols-4 w-4/6 gap-4" onSubmit={handleSubmit}>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={name} name="name" className="border w-full px-5 py-3 focus:outline-none" placeholder="Transformer Topic" />
+                <input type="text" onChange={setFormData} defaultValue={claim_no} name="claim no." className="border w-full px-5 py-3 focus:outline-none" placeholder="Claim No." />
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={text} name="text" className="border w-full px-5 py-3 focus:outline-none" placeholder="Text" />
+                <input type="text" onChange={setFormData} defaultValue={contract_no} name="contact no" className="border w-full px-5 py-3 focus:outline-none" placeholder="Contract No." />
+            </div>
+            <div className="input-type">
+                <input type="text" onChange={setFormData} defaultValue={egat_sn} name="egat serial no" className="border w-full px-5 py-3 focus:outline-none" placeholder="EGAT Serial No." />
+            </div>
+            <div className="input-type">
+                <input type="text" onChange={setFormData} defaultValue={claim_booking} name="egat serial no" className="border w-full px-5 py-3 focus:outline-none" placeholder="Claim Booking No." />
+            </div>
+            <div className="input-type">
+                <input type="text" onChange={setFormData} defaultValue={device_no} name="device no" className="border w-full px-5 py-3 focus:outline-none" placeholder="Device No." />
+            </div>
+            <div className="input-type">
+                <input type="text" onChange={setFormData} defaultValue={eqiupment} name="topic" className="border w-full px-5 py-3 focus:outline-none" placeholder="ระบุตำแหน่งที่ Claim" />
+            </div>
+            <div className="input-type">
+                <input type="text" onChange={setFormData} defaultValue={status} name="status" className="border w-full px-5 py-3 focus:outline-none" placeholder="Status" />
             </div>
             <div className="input-type">
                 <input type='date' onChange={setFormData} defaultValue={date} name="date" className="border px-5 py-3 focus:outline-none rounded-md" placeholder="Date Update"/>
@@ -77,7 +92,7 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
                 </div>
             </div>
 
-            <button className="flex justify-center text-md w-2/6 bg-yellow-400 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-green-500 hover:text-green-500">
+            <button className="flex justify-center text-md w-3/6 bg-yellow-400 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-green-500 hover:text-green-500">
             Update<span className="px-1"><BiBrush size={24}></BiBrush></span>
             </button>
         </form>

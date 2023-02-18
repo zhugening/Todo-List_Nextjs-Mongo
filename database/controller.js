@@ -1,6 +1,7 @@
 // Controller
 import Works from "../model/work" 
 
+// get all data from MongoDB
 export async function getWorks(req,res){
     try{
         const works = await Works.find({})
@@ -13,6 +14,8 @@ export async function getWorks(req,res){
     }
 }
 
+
+// get workId data from MongoDB
 export async function getWork(req,res){
     try{
         const { workId } = req.query;
@@ -32,6 +35,7 @@ export async function postWork(req,res){
         const formData = req.body;
         if(!formData) return res.status(404).json({error: "Form Data Not Provided"})
         Works.create(formData, function(err,data){
+            console.log("Hi insert already")
             return res.status(200).json(data)
         })
     }catch(error){

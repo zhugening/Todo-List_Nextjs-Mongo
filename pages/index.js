@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { BiPlusMedical, BiX , BiCheck} from 'react-icons/bi'
 import Table from '../components/table'
 import Form from '../components/form'
-import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleChangeAction, deleteAction } from '../redux/reducer'
 import { deleteWork, getWorks } from '../lib/helper'
@@ -43,16 +42,16 @@ export default function Home() {
   return (
     <section>
       <Head>
-        <title>TODO list Transformer & wkorkshop Departmennt Application</title>
+        <title>Update Claim Tracking by หวบม-ส.</title>
         <meta name="description" content="create by Wutthipan" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className='py-5'>
         <h1 className='text-xl md:text-5xl text-center font-bold py-10'>
-          Application Work tracking For Transformer Maintenace & Workshop Departments
+          Update Claim Tracking by หวบม-ส.
         </h1>
-        <div className='container mx-auto flex justify-between py-5 border-b'>
+        <div className='ml-5 container mx-auto flex justify-between py-5 border-b'>
           <div className='left flex gap-3'>
             <button onClick={handler} className='flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-indigo-800'>
             ADD WORK <span className='px-1'><BiPlusMedical size={23}></BiPlusMedical></span>
@@ -68,7 +67,7 @@ export default function Home() {
 
           {/* table */}
         
-        <div className='container mx-auto'>
+        <div className='container mx-auto ml-5'>
           <Table></Table>
         </div>
       </main>

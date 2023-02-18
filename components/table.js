@@ -15,32 +15,44 @@ export default function Table(){
     // getWork().then(res=> console.log(res)) # return all works
 
     const { isLoading, isError, data, error } = useQuery('works', getWorks) 
-    
+    console.log(data)
     if(isLoading) return <div>Work is Loading...</div>;
     if(isError) return <div>Got Error {error}</div>
 
 
     return (
-        <table className="min-w-full table-auto">
+        <table className="ml-0 table-auto item item-center">
             <thead>
                 <tr className="bg-gray-800">
-                    <th className="px-16 py-2">
-                        <span className="text-gray-200">Device Number</span>
+                    <th className="px-10 py-2">
+                        <span className="text-gray-200">Claim No.</span>
                     </th>
-                    <th className="px-16 py-2">
-                        <span className="text-gray-200">Text</span>
+                    <th className="px-8 py-2">
+                        <span className="text-gray-200">Contract No.</span>
                     </th>
-                    <th className="px-16 py-2">
-                        <span className="text-gray-200">Date Update</span>
+                    <th className="px-8 py-2">
+                        <span className="text-gray-200">EGAT Serial No.</span>
                     </th>
-                    <th className="px-16 py-2">
-                        <span className="text-gray-200">Who responsibility</span>
+                    <th className="px-10 py-2">
+                        <span className="text-gray-200">Claim Booking No.</span>
                     </th>
-                    <th className="px-16 py-2">
+                    <th className="px-8 py-2">
+                        <span className="text-gray-200">Device No.</span>
+                    </th>
+                    <th className="px-10 py-2">
+                        <span className="text-gray-200">Eq/Pos</span>
+                    </th>
+                    <th className="px-10 py-2">
+                        <span className="text-gray-200">Date</span>
+                    </th>
+                    <th className="px-10 py-2">
+                        <span className="text-gray-200">Who take action</span>
+                    </th>
+                    <th className="px-10 py-2">
                         <span className="text-gray-200">Status</span>
                     </th>
-                    <th className="px-16 py-2">
-                        <span className="text-gray-200">Notes</span>
+                    <th className="px-10 py-2">
+                        <span className="text-gray-200">Update/Delete</span>
                     </th>
                 </tr>
             </thead>
@@ -53,7 +65,7 @@ export default function Table(){
     )
 }
 
-function Tr({_id,name,text,date,responsibility,status}){
+function Tr({_id, claim_no, contract_no, egat_sn, booking_no, device_no, equipment, date, responsibility, status}){
 
     const visible = useSelector((state) => state.app.client.toggleForm)
     // console.log(visible)
@@ -72,27 +84,36 @@ function Tr({_id,name,text,date,responsibility,status}){
         }
     }
 
-
     return(
-        <tr className="bg-gray-50 text-center">
+        <tr className="bg-gray-200 text-center">
                     <td className="px-16 py-2 flex flex-row items-center">
-                        <img src="" alt="" />
-                        {/* <img src="" alt="" className="h-8 w-8 rounded-full object-cover"/> */}
-                        <span className="text-center ml-2 font-semibold">{name}</span>
+                        <span className="text-md flex md:inline-flex">{claim_no}</span>
                     </td>
                     <td className="px-16 py-2">
-                        <span>{text}</span>
+                        <span className="text-sm">{contract_no}</span>
                     </td>
                     <td className="px-16 py-2">
-                        <span>{date}</span>
+                        <span className="text-sm">{egat_sn}</span>
                     </td>
                     <td className="px-16 py-2">
-                        <span>{responsibility}</span>
+                        <span className="text-sm">{booking_no}</span>
+                    </td>
+                    <td className="px-16 py-2">
+                        <span className="text-sm">{device_no}</span>
+                    </td>
+                    <td className="px-16 py-2">
+                        <span className="text-sm">{equipment}</span>
+                    </td>
+                    <td className="px-16 py-2">
+                        <span className="text-sm">{date}</span>
+                    </td>
+                    <td className="px-16 py-2">
+                        <span className="text-sm">{responsibility}</span>
                     </td>
                     <td className="px-16 py-2">
                         <button className="cursor"><span className={`${status == "Active" ? 'bg-green-500':'bg-rose-500'} text-white px-5 py-1 rounded-full`}>{status}</span></button>
                     </td>
-                    <td className="px-16 py-2 flex justify-around gap-5">
+                    <td className="px-16 py-2 flex justify-around item items-center gap-5">
                         <button className="cursor" onClick={onUpdate}><BiEdit size={25} color={"rgb(34,197,94"}></BiEdit></button>
                         <button className="cursor" onClick={onDelete}><BiTrashAlt size={25} color={"rgb(244,63,94"}></BiTrashAlt></button>
                     </td>
