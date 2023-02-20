@@ -15,7 +15,7 @@ export default function Table(){
     // getWork().then(res=> console.log(res)) # return all works
 
     const { isLoading, isError, data, error } = useQuery('works', getWorks) 
-    console.log(data)
+    // console.log(data)
     if(isLoading) return <div>Work is Loading...</div>;
     if(isError) return <div>Got Error {error}</div>
 
@@ -65,7 +65,7 @@ export default function Table(){
     )
 }
 
-function Tr({_id, claim_no, contract_no, egat_sn, booking_no, device_no, equipment, date, responsibility, status}){
+function Tr({_id, claim_no, contract_no, egat_sn, claim_booking, device_no, eqiupment, date, responsibility, status}){
 
     const visible = useSelector((state) => state.app.client.toggleForm)
     // console.log(visible)
@@ -83,26 +83,26 @@ function Tr({_id, claim_no, contract_no, egat_sn, booking_no, device_no, equipme
             dispatch(deleteAction(_id))
         }
     }
-
+    // console.log(date)
     return(
         <tr className="bg-gray-200 text-center">
                     <td className="px-16 py-2 flex flex-row items-center">
-                        <span className="text-md flex md:inline-flex">{claim_no}</span>
+                        <span className="text-xs flex md:inline-flex">{claim_no}</span>
                     </td>
                     <td className="px-16 py-2">
-                        <span className="text-sm">{contract_no}</span>
+                        <span className="text-xs">{contract_no}</span>
                     </td>
                     <td className="px-16 py-2">
-                        <span className="text-sm">{egat_sn}</span>
+                        <span className="text-xs">{egat_sn}</span>
                     </td>
                     <td className="px-16 py-2">
-                        <span className="text-sm">{booking_no}</span>
+                        <span className="text-xs">{claim_booking}</span>
                     </td>
                     <td className="px-16 py-2">
                         <span className="text-sm">{device_no}</span>
                     </td>
                     <td className="px-16 py-2">
-                        <span className="text-sm">{equipment}</span>
+                        <span className="text-sm">{eqiupment}</span>
                     </td>
                     <td className="px-16 py-2">
                         <span className="text-sm">{date}</span>

@@ -31,7 +31,7 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
 
     const { claim_no, contract_no, egat_sn, claim_booking, device_no, eqiupment, date, responsibility, status } = data;
     // const [formData,setFormData] = useReducer(formReducer,{})
-    console.log(data)
+    // console.log(data)
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -39,7 +39,7 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
         // console.log(formData)
         
         let updated = Object.assign({}, data, formData)
-        console.log(updated)
+        // console.log(updated)
         await UpdateMutation.mutate(updated)
     }
 
@@ -65,9 +65,9 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
             <div className="input-type">
                 <input type="text" onChange={setFormData} defaultValue={eqiupment} name="topic" className="border w-full px-5 py-3 focus:outline-none" placeholder="ระบุตำแหน่งที่ Claim" />
             </div>
-            <div className="input-type">
+            {/* <div className="input-type">
                 <input type="text" onChange={setFormData} defaultValue={status} name="status" className="border w-full px-5 py-3 focus:outline-none" placeholder="Status" />
-            </div>
+            </div> */}
             <div className="input-type">
                 <input type='date' onChange={setFormData} defaultValue={date} name="date" className="border px-5 py-3 focus:outline-none rounded-md" placeholder="Date Update"/>
             </div>

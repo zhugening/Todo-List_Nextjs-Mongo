@@ -31,10 +31,10 @@ export default function AddWorkForm({formData, setFormData}){
         e.preventDefault();
         if(Object.keys(formData).length == 0)return console.log("Don't have Form Data");
         // console.log(formData)
-        let { claim_no, contract_no, egat_sn, claim_booking, device_no, eqiupment, date, responsibility, status } = formData;
+        let { claim_no, contract_no, egat_sn, claim_booking, device_no, equipment, date, responsibility, status } = formData;
 
         const model = {
-            claim_no, contract_no, egat_sn, claim_booking, device_no, eqiupment,date, responsibility, status:status ??"Active"
+            claim_no, contract_no, egat_sn, claim_booking, device_no, equipment,date, responsibility, status:status ??"Active"
         }
 
         addMutation.mutate(model)
