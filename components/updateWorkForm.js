@@ -31,7 +31,7 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
 
     const { claim_no, contract_no, egat_sn, claim_booking, device_no, eqiupment, date, responsibility, status } = data;
     // const [formData,setFormData] = useReducer(formReducer,{})
-    // console.log(data)
+    console.log(data)
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
