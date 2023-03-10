@@ -6,7 +6,7 @@ const workSchema = new Schema({
     egat_sn: String,
     claim_booking: String,
     device_no: String,
-    eqiupment: String,
+    equipment: String,
     status: String,
     responsibility: String,
     date: String
@@ -24,4 +24,3 @@ export default Works;
 //     responsibility: String,
 //     status: String
 // });
-

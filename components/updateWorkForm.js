@@ -17,6 +17,7 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
 
     const queryClient = useQueryClient()
     const { isLoading, isError, data, error } = useQuery(['works', formId],()=> getWork(formId))
+    // console.log(data)
     const UpdateMutation = useMutation((newData)=> updateWork(formId,newData), {
         onSuccess: async(data)=>{
             // queryClient.setQueryData("works",(old)=>[data])
@@ -24,14 +25,12 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
         }
     })
 
-
-
     if(isLoading) return <div>Loading.....!</div>
     if(isError) return <div>Error</div>
 
-    const { claim_no, contract_no, egat_sn, claim_booking, device_no, eqiupment, date, responsibility, status } = data;
+    const { claim_no, contract_no , egat_sn , claim_booking , device_no , equipment , date , responsibility , status } = data;
+    
     // const [formData,setFormData] = useReducer(formReducer,{})
-    // console.log(data)
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
@@ -48,22 +47,22 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
     return  (
         <form className="grid lg:grid-cols-4 w-4/6 gap-4" onSubmit={handleSubmit}>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={claim_no} name="claim no." className="border w-full px-5 py-3 focus:outline-none" placeholder="Claim No." />
+                <input type="text" onChange={setFormData} defaultValue={claim_no} name="claim_no" className="border w-full px-5 py-3 focus:outline-none" placeholder="Claim No." />
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={contract_no} name="contact no" className="border w-full px-5 py-3 focus:outline-none" placeholder="Contract No." />
+                <input type="text" onChange={setFormData} defaultValue={contract_no} name="contract_no" className="border w-full px-5 py-3 focus:outline-none" placeholder="Contract No." />
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={egat_sn} name="egat serial no" className="border w-full px-5 py-3 focus:outline-none" placeholder="EGAT Serial No." />
+                <input type="text" onChange={setFormData} defaultValue={egat_sn} name="egat_sn" className="border w-full px-5 py-3 focus:outline-none" placeholder="EGAT Serial No." />
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={claim_booking} name="egat serial no" className="border w-full px-5 py-3 focus:outline-none" placeholder="Claim Booking No." />
+                <input type="text" onChange={setFormData} defaultValue={claim_booking} name="claim_booking" className="border w-full px-5 py-3 focus:outline-none" placeholder="Claim Booking No." />
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={device_no} name="device no" className="border w-full px-5 py-3 focus:outline-none" placeholder="Device No." />
+                <input type="text" onChange={setFormData} defaultValue={device_no} name="device_no" className="border w-full px-5 py-3 focus:outline-none" placeholder="Device No." />
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} defaultValue={eqiupment} name="topic" className="border w-full px-5 py-3 focus:outline-none" placeholder="ระบุตำแหน่งที่ Claim" />
+                <input type="text" onChange={setFormData} defaultValue={equipment} name="equipment" className="border w-full px-5 py-3 focus:outline-none" placeholder="ระบุตำแหน่งที่ Claim" />
             </div>
             {/* <div className="input-type">
                 <input type="text" onChange={setFormData} defaultValue={status} name="status" className="border w-full px-5 py-3 focus:outline-none" placeholder="Status" />

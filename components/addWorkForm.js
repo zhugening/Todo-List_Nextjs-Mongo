@@ -34,7 +34,7 @@ export default function AddWorkForm({formData, setFormData}){
         let { claim_no, contract_no, egat_sn, claim_booking, device_no, equipment, date, responsibility, status } = formData;
 
         const model = {
-            claim_no, contract_no, egat_sn, claim_booking, device_no, equipment,date, responsibility, status:status ??"Active"
+            claim_no, contract_no, egat_sn, claim_booking, device_no, equipment , date, responsibility, status:status ??"Active"
         }
 
         addMutation.mutate(model)
@@ -64,7 +64,7 @@ export default function AddWorkForm({formData, setFormData}){
                 <input type="text" onChange={setFormData} name="device_no" className="border w-full px-5 py-3 focus:outline-none" placeholder="Device Number" />
             </div>
             <div className="input-type">
-                <input type="text" onChange={setFormData} name="eqiupment" className="border w-full px-5 py-3 focus:outline-none" placeholder="ระบุตำแหน่งที่ Claim" />
+                <input type="text" onChange={setFormData} name="equipment" className="border w-full px-5 py-3 focus:outline-none" placeholder="ระบุตำแหน่งที่ Claim" />
             </div>
             {/* <div className="input-type">
                 <input type="text" onChange={setFormData} name="status" className="border w-full px-5 py-3 focus:outline-none" placeholder="Satus" />

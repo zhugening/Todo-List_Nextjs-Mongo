@@ -22,6 +22,7 @@ export async function getWork(req,res){
         if(workId){
             const work = await Works.findById(workId);
             res.status(200).json(work)
+            return;
         }
         res.status(404).json({error: "Work not Selected...!"})
     }catch(error){
@@ -39,6 +40,7 @@ export async function postWork(req,res){
             return res.status(200).json(data)
         })
     }catch(error){
+        console.log("Found problem for API")
         return res.status(404).json({error})
     }
 }
@@ -48,13 +50,18 @@ export async function putWork(req,res){
     try{
         const {workId} = req.query;
         const formData = req.body;
+        // console.log(formData)
         if(workId && formData){
             const work = await Works.findByIdAndUpdate(workId, formData);
             res.status(200).json(work)
+            return;
+            // console.log(work)
         }
         res.status(404).json({error: "Work Not Selected...!"})
+        return;
     }catch(error){
         res.status(404).json({ error: "Error While Updating the Data...!"})
+        return;
     }
 }
 

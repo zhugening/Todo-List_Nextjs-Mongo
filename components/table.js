@@ -1,4 +1,4 @@
-import {BiEdit, BiTrashAlt} from "react-icons/bi";
+import {BiEdit, BiTrashAlt, BiAddToQueue} from "react-icons/bi";
 // import data from '../database/data.json'
 import { getWorks } from '../lib/helper';
 import { useQuery } from "react-query";
@@ -21,38 +21,38 @@ export default function Table(){
 
 
     return (
-        <table className="ml-0 table-auto item item-center">
+        <table className="table-auto">
             <thead>
-                <tr className="bg-gray-800">
-                    <th className="px-10 py-2">
+                <tr className="bg-gray-600">
+                    <th className="border px-4 py-2">
                         <span className="text-gray-200">Claim No.</span>
                     </th>
-                    <th className="px-8 py-2">
+                    <th className="border px-4 py-2">
                         <span className="text-gray-200">Contract No.</span>
                     </th>
-                    <th className="px-8 py-2">
+                    <th className="border px-4 py-2">
                         <span className="text-gray-200">EGAT Serial No.</span>
                     </th>
-                    <th className="px-10 py-2">
+                    <th className="border px-4 py-2">
                         <span className="text-gray-200">Claim Booking No.</span>
                     </th>
-                    <th className="px-8 py-2">
+                    <th className="border px-4 py-2">
                         <span className="text-gray-200">Device No.</span>
                     </th>
-                    <th className="px-10 py-2">
-                        <span className="text-gray-200">Eq/Pos</span>
+                    <th className="border px-4 py-2">
+                        <span className="text-gray-200">Equipment</span>
                     </th>
-                    <th className="px-10 py-2">
+                    <th className="border px-4 py-2">
                         <span className="text-gray-200">Date</span>
                     </th>
-                    <th className="px-10 py-2">
-                        <span className="text-gray-200">Who take action</span>
+                    <th className="border px-4 py-2">
+                        <span className="text-gray-200">Responsible</span> 
                     </th>
-                    <th className="px-10 py-2">
+                    <th className="border px-4 py-2">
                         <span className="text-gray-200">Status</span>
                     </th>
-                    <th className="px-10 py-2">
-                        <span className="text-gray-200">Update/Delete</span>
+                    <th className="border px-6 py-2">
+                        <span className="text-gray-200">Edit/Update/Delete</span>
                     </th>
                 </tr>
             </thead>
@@ -65,7 +65,7 @@ export default function Table(){
     )
 }
 
-function Tr({_id, claim_no, contract_no, egat_sn, claim_booking, device_no, eqiupment, date, responsibility, status}){
+function Tr({_id, claim_no, contract_no, egat_sn, claim_booking, device_no, equipment, date, responsibility, status}){
 
     const visible = useSelector((state) => state.app.client.toggleForm)
     // console.log(visible)
@@ -73,7 +73,6 @@ function Tr({_id, claim_no, contract_no, egat_sn, claim_booking, device_no, eqiu
 
     const onUpdate = ()=>{
         dispatch(toggleChangeAction(_id))
-        // console.log(visible)
         if(visible){
             dispatch(updateAction(_id))
         }
@@ -85,36 +84,37 @@ function Tr({_id, claim_no, contract_no, egat_sn, claim_booking, device_no, eqiu
     }
     // console.log(date)
     return(
-        <tr className="bg-gray-200 text-center">
-                    <td className="px-16 py-2 flex flex-row items-center">
-                        <span className="text-xs flex md:inline-flex">{claim_no}</span>
+        <tr className="bg-gray-100 text-center">
+                    <td className="border px-4 py-2 border-black">
+                        <span className="text-xs">{claim_no}</span>
                     </td>
-                    <td className="px-16 py-2">
+                    <td className="border px-4 py-2 border-black">
                         <span className="text-xs">{contract_no}</span>
                     </td>
-                    <td className="px-16 py-2">
+                    <td className="border px-4 py-2 border-black">
                         <span className="text-xs">{egat_sn}</span>
                     </td>
-                    <td className="px-16 py-2">
+                    <td className="border px-4 py-2 border-black">
                         <span className="text-xs">{claim_booking}</span>
                     </td>
-                    <td className="px-16 py-2">
+                    <td className="border px-4 py-2 border-black">
                         <span className="text-sm">{device_no}</span>
                     </td>
-                    <td className="px-16 py-2">
-                        <span className="text-sm">{eqiupment}</span>
+                    <td className="border px-4 py-2 border-black">
+                        <span className="text-sm">{equipment}</span>
                     </td>
-                    <td className="px-16 py-2">
+                    <td className="border px-4 py-2 border-black">
                         <span className="text-sm">{date}</span>
                     </td>
-                    <td className="px-16 py-2">
+                    <td className="border px-4 py-2 border-black">
                         <span className="text-sm">{responsibility}</span>
                     </td>
-                    <td className="px-16 py-2">
+                    <td className="border px-4 py-2 border-black">
                         <button className="cursor"><span className={`${status == "Active" ? 'bg-green-500':'bg-rose-500'} text-white px-5 py-1 rounded-full`}>{status}</span></button>
                     </td>
-                    <td className="px-16 py-2 flex justify-around item items-center gap-5">
+                    <td className="border px-4 py-2 border-black">
                         <button className="cursor" onClick={onUpdate}><BiEdit size={25} color={"rgb(34,197,94"}></BiEdit></button>
+                        <button className="cursor" onClick={onUpdate}><BiAddToQueue size={25} color={"rgb(215,200,0)"}></BiAddToQueue></button>
                         <button className="cursor" onClick={onDelete}><BiTrashAlt size={25} color={"rgb(244,63,94"}></BiTrashAlt></button>
                     </td>
                 </tr>
