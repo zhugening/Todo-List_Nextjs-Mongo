@@ -1,11 +1,22 @@
 import { Schema, models, model } from 'mongoose';
 
-const workSchema = new Schema({
-    name: String,
+const TrackingSchema = new Schema({
+    dateUpdate: String,
     text: String,
-    date: String,
+    person: String
+})
+
+const workSchema = new Schema({
+    claim_no: String,
+    contract_no: String,
+    egat_sn: String,
+    claim_booking: String,
+    device_no: String,
+    equipment: String,
+    status: String,
     responsibility: String,
-    status: String
+    date: String,
+    update: [TrackingSchema]
 });
 
 const Works = models.work || model("work", workSchema)
