@@ -3,14 +3,14 @@ import { BiBrush } from "react-icons/bi"
 import Success from "./success"
 import Bug from "./bug"
 import { useQuery, useMutation, useQueryClient } from "react-query"
-import { getWork, updateWork, getWorks } from "../lib/helper"
+import { getWork, updateTrackWork, getWorks } from "../lib/helper"
 
 export default function UpdateWorkForm({ formId,formData,setFormData }){
 
     const queryClient = useQueryClient()
     const { isLoading, isError, data, error } = useQuery(['works', formId],()=> getWork(formId))
     // console.log(data)
-    const UpdateMutation = useMutation((newData)=> updateWork(formId,newData), {
+    const UpdateMutation = useMutation((newData)=> updateTrackWork(formId,newData), {
         onSuccess: async(data)=>{
             // queryClient.setQueryData("works",(old)=>[data])
             queryClient.prefetchQuery('works',getWorks)

@@ -4,11 +4,12 @@ import Table from '../components/table'
 import Form from '../components/form'
 import Form_track from '../components/form_track'
 import { useSelector, useDispatch } from 'react-redux'
-import { toggleChangeAction, deleteAction , trackAction  } from '../redux/reducer'
+import { toggleChangeAction, deleteAction } from '../redux/reducer'
 import { deleteWork, getWorks } from '../lib/helper'
 import { useQueryClient } from 'react-query'
-import { useState } from 'react'
 import Footer from '../components/footer'
+
+
 
 export default function Home() {
   const visible = useSelector((state)=> state.app.client.toggleForm)
@@ -60,8 +61,10 @@ export default function Home() {
           </div>
           { deleteId? DeleteComponent({deletehandler, cancelhandler}):<></> }
           </div>
-    
+            {/* Solution 1 */}
             {/* {visible ?<Form></Form>: <></>} */}
+            
+            {/* Solution 2 */}
             {visible ?<Form></Form>
             :trackId ?<Form_track></Form_track> :<></>}
         

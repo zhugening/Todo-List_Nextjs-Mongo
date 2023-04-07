@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     case 'PUT':
         // res.status(200).json({method,name:'PUT Request'});
         putWork(req,res)
-        // postsWork(req,res)
+        postsWork(req,res)
         break;
     case 'DELETE':
         // res.status(200).json({method,name:'DELETE Request'});

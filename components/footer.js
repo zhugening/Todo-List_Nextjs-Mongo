@@ -11,9 +11,13 @@ function Footer() {
           <span className="text-4xl mr-2 ml-2 text-red-600">❤</span> 
           by{" "}
           <span className="hover:text-violet-600 font-semibold cursor-pointer hover-text-4xl">
-            หวบม-ส.{" "}
+            หวบม-ส.{" "} 
           </span>
+          
         </h1>
+          <span className="hover:text-yellow-500 font-bold cursor-pointer hover-text-5xl">
+          Any comment please contract Admin (Wutthipan)
+          </span>
       </div>
     </>
   );

@@ -13,7 +13,7 @@ export default async function handler(req, res) {
             break;
         case "PUT":
             putWork(req,res);
-            // postsWork(req,res)
+            postsWork(req,res)
             break;
         case "DELETE":
             deleteWork(req,res);

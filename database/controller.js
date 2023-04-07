@@ -53,7 +53,7 @@ export async function putWork(req,res){
         // console.log("this is fromData",formData)
         if(workId && formData){
             // const work = await Works.findOneAndUpdate(workId, formData)
-            const work = await Works.findByIdAndUpdate(workId, formData);
+            const work = await Works.findByIdAndUpdate(workId, formData)
             res.status(200).json(work)
             console.log("this is work put protocal")
             return;
@@ -62,7 +62,7 @@ export async function putWork(req,res){
         res.status(404).json({error: "Work Not Selected...!"})
         return;
     }catch(error){
-        res.status(404).json({ error: "Error While Updating the Data...! นะเว้ย"})
+        res.status(404).json({error: "Error While Updating the Data...! นะเว้ยยยยยยยย"})
         return;
     }
 }
@@ -106,6 +106,29 @@ export async function deleteWork(req,res){
 //     }
 // }
 
+//version1
+// export async function postsWork(req,res){
+//     try{
+//         const {workId} = req.query;
+//         const formData = req.body;
+//         // console.log(Works.update)
+
+//         if(workId && formData){
+//             // const work = await Works.findOneAndUpdate(
+//             const work = await Works.findOneAndUpdate(
+//                 workId,formData)
+//                 res.status(200).json(work)
+//             console.log("this is postswork for update tracking")
+//             return;
+            
+//         }
+//     }catch(error){
+//         console.log("Found problem for API")
+//         return res.status(404).json({error})
+//     }
+// }
+
+
 export async function postsWork(req,res){
     try{
         const {workId} = req.query;
@@ -114,12 +137,16 @@ export async function postsWork(req,res){
 
         if(workId && formData){
             // const work = await Works.findOneAndUpdate(
-            const work = await Works.findOneAndUpdate(
-                workId,formData)
-                res.status(200).json(work)
-            console.log("this is postswork for update tracking")
-            return;
-            
+            const work = await Works.updateOne({_id: workId} , {
+                $push:{
+                    update: {
+                        dateUpdate: formData.dateUpdate,
+                        text: formData.text,
+                        person: formData.person
+                    }
+                }
+            });
+            return work        
         }
     }catch(error){
         console.log("Found problem for API")

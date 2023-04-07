@@ -4,6 +4,8 @@ import { getWorks } from '../lib/helper';
 import { useQuery } from "react-query";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleChangeAction, updateAction, deleteAction , trackAction } from "../redux/reducer";
+import show_Table from '../components/show_tracking'
+
 
 
 export default function Table(){    
@@ -60,40 +62,55 @@ export default function Table(){
 }
 
 function Tr({_id, claim_no, contract_no, egat_sn, claim_booking, device_no, equipment, date, responsibility, status}){
-    // const track = useSelector((state) => state.app.client.toggleForm)
+    // call by id
     const visible = useSelector((state) => state.app.client.toggleForm)
-    // const [trackId, setTrackId] = useState(true)
     const dispatch = useDispatch()
 
     const onUpdate = ()=>{
         // try to cancel toggle
+        // console.log(_id)
         dispatch(toggleChangeAction(_id))
         if(visible){
             dispatch(updateAction(_id))
         }
     }
+
     const onTrack = ()=>{
         dispatch(toggleChangeAction(_id))
         if(visible){
             dispatch(trackAction(_id))
         }
     }
+
     const onDelete = ()=>{
         if(!visible){
             dispatch(deleteAction(_id))
         }
     }
 
-    const myFunction= () => {
-        console.log("Click function")
-        var txt;
-        if (confirm("Press a button!")) {
-          txt = "You pressed OK!";
-        } else {
-          txt = "You pressed Cancel!";
-        }
-        document.getElementById("demo").innerHTML = txt;
+    // Solution 1
+    // const myFunction= () => {
+    //     dispatch(toggleChangeAction(_id))
+    //     // console.log(_id)
+    //     var txt;
+    //     if (confirm("Press a button!")) {
+    //       txt = "You pressed OK! to Tracking Claim";
+    //     //   {<show_Table         
+    //     //   formId = {_id}
+    //     //   />}
+    //       window.location.href = "/trackTable";
+    //     } else {
+    //       txt = "You pressed Cancel!";
+    //     }
+    //   }
+
+    // solution 1
+      const changePage=() =>{
+        // console.log("this is _Id from table.js",_id)
+        var formId = _id;
+        window.location.href = `/trackPage?formId=${formId}`
       }
+
 
     return(
         <tr className="bg-gray-100 text-center">
@@ -131,7 +148,7 @@ function Tr({_id, claim_no, contract_no, egat_sn, claim_booking, device_no, equi
                     <td className="border px-4 py-2 border-black space-x-1">
                         <button className="cursor" onClick={onUpdate}><BiEdit size={25} color={"rgb(34,197,94"}></BiEdit></button>
                         <button className="cursor" onClick={onTrack}><BiAddToQueue size={25} color={"rgb(215,200,0)"}></BiAddToQueue></button>
-                        <button className="cursor" onClick={myFunction}><BiBody size={25} color={"rgb(218,112,214)"}></BiBody></button>
+                        <button className="cursor" onClick={changePage}><BiBody size={25} color={"rgb(218,112,214)"}></BiBody></button>
                         <button className="cursor" onClick={onDelete}><BiTrashAlt size={25} color={"rgb(244,63,94"}></BiTrashAlt></button>
                     </td>
                 </tr>
