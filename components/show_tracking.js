@@ -33,13 +33,13 @@ export default function ShowTable( {formId} ){
                         <span className="text-gray-200">Status</span>
                     </th> */}
                     <th className="border px-6 py-2 text-xs">
-                        <span className="text-gray-200">Edit/Update/Track/Delete</span>
+                        <span className="text-gray-200">Update/Delete</span>
                     </th>
                 </tr>
             </thead>
             <tbody className="bg-gray-200">
                 {
-                    data?.update?.map((obj,i)=> <Tr{...obj}key={i}/>)
+                    data?.update?.map((obj,i)=> <Tr{...obj}key={i} props={formId}/>)
                 }
             </tbody>
         </table>
@@ -47,21 +47,27 @@ export default function ShowTable( {formId} ){
     )
 }
 
-function Tr({_id, dateUpdate,text, person}){
-    // console.log(_id)
+function Tr({_id, dateUpdate,text, person ,props}){
+    const formId = props
+    const trackId = _id
     const visible = useSelector((state) => state.app.client.toggleForm)
     const dispatch = useDispatch()
+    // console.log("this is formId",formId)
+    // console.log("this is trackId",trackId)
 
     const onTrack = ()=>{
         console.log("Click here")
-        dispatch(toggleChangeAction(_id))
+        dispatch(toggleChangeAction(trackId))
         if(visible){
-            dispatch(trackAction(_id))
+            dispatch(trackAction(trackId))
         }
     }
+
+    
     const onDelete = ()=>{
+        // console.log("Click to Delete")
         if(!visible){
-            dispatch(deleteAction(_id))
+            dispatch(deleteAction(trackId))
         }
     }
 
@@ -86,7 +92,7 @@ function Tr({_id, dateUpdate,text, person}){
                             } text-white px-5 py-1 rounded-full`}>{status}</span></button>
                     </td> */}
                     <td className="border px-4 py-2 border-black space-x-3">
-                        <button className="cursor" onClick={onTrack}><BiEdit size={25} color={"rgb(34,197,94"}></BiEdit></button>
+                        {/* <button className="cursor" onClick={onTrack}><BiEdit size={25} color={"rgb(34,197,94"}></BiEdit></button> */}
                         <button className="cursor" onClick={onDelete}><BiTrashAlt size={25} color={"rgb(244,63,94"}></BiTrashAlt></button>
                     </td>
                 </tr>

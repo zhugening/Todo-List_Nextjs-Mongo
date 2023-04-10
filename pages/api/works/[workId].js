@@ -1,5 +1,5 @@
 import connectMongo from "../../../database/conn"
-import { getWork, putWork, deleteWork, postsWork } from "../../../database/controller";
+import { getWork, putWork, deleteWork, deleteTrackWork , updateTrackWork} from "../../../database/controller";
 
 export default async function handler(req, res) {
     connectMongo().catch(()=> res.status(405).json({error:"Error in the Connection"}))
@@ -12,8 +12,9 @@ export default async function handler(req, res) {
             getWork(req,res);
             break;
         case "PUT":
-            putWork(req,res);
-            postsWork(req,res)
+            putWork(req,res)
+            updateTrackWork(req,res);
+            deleteTrackWork(req,res);
             break;
         case "DELETE":
             deleteWork(req,res);

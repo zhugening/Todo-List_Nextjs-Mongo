@@ -4,7 +4,7 @@ import Success from "./success"
 import Bug from "./bug"
 import { useQuery, useMutation, useQueryClient } from "react-query"
 import { getWork, updateTrackWork, getWorks } from "../lib/helper"
-
+import { useState } from "react"
 export default function UpdateWorkForm({ formId,formData,setFormData }){
 
     const queryClient = useQueryClient()
@@ -16,10 +16,11 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
             queryClient.prefetchQuery('works',getWorks)
         }
     })
+    const [isSuccess, setIsSucess] = useState(false)
 
     if(isLoading) return <div>Loading.....!</div>
     if(isError) return <div>Error</div>
-    // if(isSuccess) return<Success message={"Updated Successfully"}></Success>
+    if(isSuccess !== false) return<Success message={"Updated Successfully"}></Success>
 
     const { claim_no, contract_no , egat_sn , claim_booking , device_no , equipment , date , responsibility , status } = data;
     
@@ -33,6 +34,7 @@ export default function UpdateWorkForm({ formId,formData,setFormData }){
         let updated = Object.assign({}, data, formData)
         // console.log(updated)
         await UpdateMutation.mutate(updated)
+        setIsSucess(true)
     }
 
     // if(Object.keys(formData).length > 0)return<Bug message={"Error"}></Bug>

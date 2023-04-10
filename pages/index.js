@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { BiPlusMedical, BiX , BiCheck} from 'react-icons/bi'
+import { BiPlusMedical, BiX , BiCheck , BiSearch} from 'react-icons/bi'
 import Table from '../components/table'
 import Form from '../components/form'
 import Form_track from '../components/form_track'
@@ -8,6 +8,8 @@ import { toggleChangeAction, deleteAction } from '../redux/reducer'
 import { deleteWork, getWorks } from '../lib/helper'
 import { useQueryClient } from 'react-query'
 import Footer from '../components/footer'
+import { useState } from 'react'
+
 
 
 
@@ -16,10 +18,22 @@ export default function Home() {
   const trackId = useSelector(state => state.app.client.trackId)
   const deleteId = useSelector(state => state.app.client.deleteId)
   const queryclient = useQueryClient();
-  // const [tracks, setTracks] = useState(true)
-
-
   const dispatch = useDispatch()
+
+// For Seach Bar Claim Work
+//   const [posts, setPosts] = useState([]); // useState having initital value as null array
+//   const [query, setQuery] = useState("");
+
+//   const fetchData=() => {
+//   fetch('http://10.40.61.96:8090/TXs/').then((response)=>{
+//     return response.json(); 
+//   }).then((data)  => {
+//     setPosts(data) 
+//   })
+// }
+// useEffect(()=> {
+//   fetchData();
+// },[]);
 
   
   const handler = () => {
@@ -29,11 +43,14 @@ export default function Home() {
   }
 
   const deletehandler = async () => {
-    if(deleteId){
-      await deleteWork(deleteId);
-      await queryclient.prefetchQuery('works',getWorks)
-      await dispatch(deleteAction(null))
-    }
+    if(deleteId ){
+      var password = prompt("Enter Password for Delete this claim");
+      if (password == "wutthipan"){
+        await deleteWork(deleteId);
+        await queryclient.prefetchQuery('works',getWorks)
+        await dispatch(deleteAction(null))
+      }
+    } 
   }
 
   const cancelhandler = async () =>{
@@ -58,6 +75,15 @@ export default function Home() {
             <button onClick={handler} className='flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-indigo-800'>
             ADD YOUR CLAIM <span className='px-1'><BiPlusMedical size={23}></BiPlusMedical></span>
             </button>
+
+              {/* <BiSearch size={23}/>
+              <input            
+                className='flex justify-between rounded-full pl-30 hover:border-indigo-500 hover:text-indigo-800'
+                type ="text"
+                placeholder={"Search Transformer"}
+                // onChange={(e) => setQuery(e.target.value)}
+              /> */}
+
           </div>
           { deleteId? DeleteComponent({deletehandler, cancelhandler}):<></> }
           </div>
@@ -70,6 +96,7 @@ export default function Home() {
         
         <div className='container mx-auto content-center'>
           <Table></Table>
+          
           </div>
           <Footer/>
       </main>

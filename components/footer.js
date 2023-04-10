@@ -16,7 +16,7 @@ function Footer() {
           
         </h1>
           <span className="hover:text-yellow-500 font-bold cursor-pointer hover-text-5xl">
-          Any comment please contract Admin (Wutthipan)
+          Any comment please contract Admin Wutthipan.p@egat.co.th | Watcharet.nor@egat.co.th
           </span>
       </div>
     </>

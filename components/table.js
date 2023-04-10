@@ -155,3 +155,5 @@ function Tr({_id, claim_no, contract_no, egat_sn, claim_booking, device_no, equi
                 
     )
 }
+
+// sfsad

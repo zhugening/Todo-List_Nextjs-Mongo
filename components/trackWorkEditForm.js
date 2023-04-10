@@ -10,7 +10,7 @@ export default function TrackWorkForm({ formId,formData,setFormData }){
 
     const queryClient = useQueryClient()
     const { isLoading, isError, data, error , isSuccess} = useQuery(['works', formId],()=> getWork(formId))
-    // console.log(data)
+    console.log(data)
     const UpdateMutation = useMutation((newData)=> updateWork(formId,newData), {
         onSuccess: async(data)=>{
             // queryClient.setQueryData("works",(old)=>[data])
@@ -28,7 +28,7 @@ export default function TrackWorkForm({ formId,formData,setFormData }){
     
 
     const { claim_no, contract_no , egat_sn , claim_booking , device_no , equipment , date , responsibility , status ,update , dateUpdate , text , person } = data;
-    
+    // console.log(data)
     // const [formData,setFormData] = useReducer(formReducer,{})
 
     // It's work only update
@@ -56,13 +56,13 @@ export default function TrackWorkForm({ formId,formData,setFormData }){
         // console.log('this is formdata from trackWorkForm',formData['claim'])
         
         //try version 2
-        // let update = {"status": formData['status'] ,
-        //          $push: 
-        //             {update : {
-        //                 "dateUpdate" : formData['dateUpdate'],
-        //                 "text" : formData['text'],
-        //                 "person" : formData['person'],
-        //             },}};
+        let update = {"status": formData['status'] ,
+                 $push: 
+                    {update : {
+                        "dateUpdate" : formData['dateUpdate'],
+                        "text" : formData['text'],
+                        "person" : formData['person'],
+                    },}};
 
         
         let updated = Object.assign({}, data, formData)
@@ -103,13 +103,13 @@ export default function TrackWorkForm({ formId,formData,setFormData }){
             </div>
 
             <div className="input-type">
-                <input type='date' onChange={setFormData} defaultValue={dateUpdate} name="dateUpdate" className="border border-gray-400 border-4 px-5 py-3 focus:outline-none rounded-md bg-gray-200 text-gray-700" placeholder="Date Update"/>
+                <input type='date' onChange={setFormData} defaultValue={update['dateUpdate']} name="dateUpdate" className="border border-gray-400 border-4 px-5 py-3 focus:outline-none rounded-md bg-gray-200 text-gray-700" placeholder="Date Update"/>
             </div>
             <div className="input-type">
-                <input type='text' onChange={setFormData} defaultValue={text} name="text" className="border border-gray-400  border-4 px-5 py-3 focus:outline-none rounded-md bg-gray-200 text-gray-800" placeholder="text"/>
+                <input type='text' onChange={setFormData} defaultValue={update['text']} name="text" className="border border-gray-400  border-4 px-5 py-3 focus:outline-none rounded-md bg-gray-200 text-gray-800" placeholder="text"/>
             </div>
             <div className="input-type">
-                <input type='text' onChange={setFormData} defaultValue={person} name="person" className="border border-gray-400 border-4 px-5 py-3 focus:outline-none rounded-md bg-gray-200 text-gray-700" placeholder="person"/>
+                <input type='text' onChange={setFormData} defaultValue={update['person']} name="person" className="border border-gray-400 border-4 px-5 py-3 focus:outline-none rounded-md bg-gray-200 text-gray-700" placeholder="person"/>
             </div>
 
 

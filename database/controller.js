@@ -71,7 +71,6 @@ export async function putWork(req,res){
 export async function deleteWork(req,res){
     try{
         const {workId} = req.query;
-
         if(workId){
             const work = await Works.findByIdAndDelete(workId)
             return res.status(200).json({ deleted: workId})
@@ -83,6 +82,33 @@ export async function deleteWork(req,res){
         res.status(404).json({error: "Error While Deleting the Work..!"})
     }
 }
+
+export async function deleteTrackWork(req,res){
+    try{
+        const {workId} = req.query;
+        const trackId = req.body;
+
+        // console.log("this is workId",workId)
+        // console.log("this is trackId",trackId)
+        if(workId){
+            // findByIdAndDelete : ลบทั้ง workId
+            // findByIdAndUpdate : pull track it's okay but hash putwork and postswork
+            // updateOne : pull track it's okay but hash putwork and postswork
+            // const work = await Works.findOneAndUpdate(
+            const work = await Works.findByIdAndUpdate({'_id': workId} , {
+                $pull: {
+                    'update': {
+                        '_id': trackId
+                    }
+                } 
+            });
+            return;
+        } 
+    }catch(error){
+        res.status(404).json({error: "Error While Deleting the Work..!"})
+    }
+}
+
 
 //posts for SubDoc findOneAndUpdate => more information
 // export async function postsWork(req,res){
@@ -129,24 +155,24 @@ export async function deleteWork(req,res){
 // }
 
 
-export async function postsWork(req,res){
+export async function updateTrackWork(req,res){
     try{
         const {workId} = req.query;
         const formData = req.body;
-        // console.log(Works.update)
+        console.log(formData)
 
-        if(workId && formData){
+        if(workId&&formData){
             // const work = await Works.findOneAndUpdate(
-            const work = await Works.updateOne({_id: workId} , {
+            const work = await Works.findByIdAndUpdate ({'_id': workId} , {
                 $push:{
-                    update: {
-                        dateUpdate: formData.dateUpdate,
-                        text: formData.text,
-                        person: formData.person
+                    'update': {
+                        'dateUpdate': formData.dateUpdate,
+                        'text': formData.text,
+                        'person': formData.person
                     }
                 }
             });
-            return work        
+            return ;        
         }
     }catch(error){
         console.log("Found problem for API")
