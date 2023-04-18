@@ -1,5 +1,5 @@
 import {BiEdit, BiTrashAlt, BiAddToQueue , BiBody} from "react-icons/bi";
-import { getWorks , getWork} from '../lib/helper';
+import { getWorks , getWork , deleteTrackWork} from '../lib/helper';
 import { useQuery } from "react-query";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleChangeAction, updateAction, deleteAction , trackAction } from "../redux/reducer";
@@ -52,22 +52,25 @@ function Tr({_id, dateUpdate,text, person ,props}){
     const trackId = _id
     const visible = useSelector((state) => state.app.client.toggleForm)
     const dispatch = useDispatch()
-    // console.log("this is formId",formId)
-    // console.log("this is trackId",trackId)
 
-    const onTrack = ()=>{
-        console.log("Click here")
-        dispatch(toggleChangeAction(trackId))
-        if(visible){
-            dispatch(trackAction(trackId))
-        }
-    }
+
+    // const onTrack = ()=>{
+    //     console.log("Click here")
+    //     dispatch(toggleChangeAction(trackId))
+    //     if(visible){
+    //         dispatch(trackAction(trackId))
+    //     }
+    // }
 
     
     const onDelete = ()=>{
         // console.log("Click to Delete")
         if(!visible){
+            console.log(trackId)
             dispatch(deleteAction(trackId))
+            // console.log("Click to delete")
+            // deleteTrackWork(formId, trackId)
+            // updateTrackWork(formId,trackId)
         }
     }
 

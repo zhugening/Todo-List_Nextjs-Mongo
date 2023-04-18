@@ -18,9 +18,6 @@ export default function Home() {
   const dispatch = useDispatch()
 
   
-  
-
-  
   // function check 'undefined'
   function check_window(){
     let queryString = ''

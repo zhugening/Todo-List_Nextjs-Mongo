@@ -40,7 +40,7 @@ export async function postWork(req,res){
             return res.status(200).json(data)
         })
     }catch(error){
-        console.log("Found problem for API")
+        // console.log("Found problem for API")
         return res.status(404).json({error})
     }
 }
@@ -51,11 +51,12 @@ export async function putWork(req,res){
         const {workId} = req.query;
         const formData = req.body;
         // console.log("this is fromData",formData)
-        if(workId && formData){
+        if(workId&&formData){
+            console.log("START PutWork GO!!!!")
             // const work = await Works.findOneAndUpdate(workId, formData)
             const work = await Works.findByIdAndUpdate(workId, formData)
             res.status(200).json(work)
-            console.log("this is work put protocal")
+            // console.log("this is putWork is working")
             return;
             
         }
@@ -72,6 +73,7 @@ export async function deleteWork(req,res){
     try{
         const {workId} = req.query;
         if(workId){
+            console.log("START DeleteWork GO!!!!!")
             const work = await Works.findByIdAndDelete(workId)
             return res.status(200).json({ deleted: workId})
         }
@@ -87,10 +89,9 @@ export async function deleteTrackWork(req,res){
     try{
         const {workId} = req.query;
         const trackId = req.body;
-
-        // console.log("this is workId",workId)
-        // console.log("this is trackId",trackId)
-        if(workId){
+        
+        if(workId&&trackId){
+            // console.log("START DeleteTrackWork GO!!!!!")
             // findByIdAndDelete : ลบทั้ง workId
             // findByIdAndUpdate : pull track it's okay but hash putwork and postswork
             // updateOne : pull track it's okay but hash putwork and postswork
@@ -102,6 +103,7 @@ export async function deleteTrackWork(req,res){
                     }
                 } 
             });
+            // console.log("this is deletedTrackWork is working")
             return;
         } 
     }catch(error){
@@ -109,61 +111,13 @@ export async function deleteTrackWork(req,res){
     }
 }
 
-
-//posts for SubDoc findOneAndUpdate => more information
-// export async function postsWork(req,res){
-//     try{
-//         const {workId} = req.query;
-//         const formData = req.body;
-//         console.log(formData)
-
-//         if(workId && formData){
-//             // const work = await Works.findOneAndUpdate(
-//             const work = await Works.updateOne(
-//                 workId,formData)
-//                 res.status(200).json(work)
-//             // console.log("this is work",work)
-//             return;
-            
-//         }
-//     }catch(error){
-//         console.log("Found problem for API")
-//         return res.status(404).json({error})
-//     }
-// }
-
-//version1
-// export async function postsWork(req,res){
-//     try{
-//         const {workId} = req.query;
-//         const formData = req.body;
-//         // console.log(Works.update)
-
-//         if(workId && formData){
-//             // const work = await Works.findOneAndUpdate(
-//             const work = await Works.findOneAndUpdate(
-//                 workId,formData)
-//                 res.status(200).json(work)
-//             console.log("this is postswork for update tracking")
-//             return;
-            
-//         }
-//     }catch(error){
-//         console.log("Found problem for API")
-//         return res.status(404).json({error})
-//     }
-// }
-
-
 export async function updateTrackWork(req,res){
     try{
         const {workId} = req.query;
         const formData = req.body;
-        console.log(formData)
-
-        if(workId&&formData){
-            // const work = await Works.findOneAndUpdate(
-            const work = await Works.findByIdAndUpdate ({'_id': workId} , {
+        
+        if((formData.dateUpdate != undefined)&&(formData.text != undefined)&&(formData.person != undefined)){
+            const work = await Works.findByIdAndUpdate({'_id': workId} , {
                 $push:{
                     'update': {
                         'dateUpdate': formData.dateUpdate,
@@ -172,10 +126,12 @@ export async function updateTrackWork(req,res){
                     }
                 }
             });
+            // console.log("this is updateTrackWork is working")
             return ;        
         }
     }catch(error){
-        console.log("Found problem for API")
+        // console.log("Found problem for API")
         return res.status(404).json({error})
     }
 }
+

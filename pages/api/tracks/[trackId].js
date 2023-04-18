@@ -1,5 +1,5 @@
 import connectMongo from "../../../database/conn"
-import { getWork, putWork, deleteWork, deleteTrackWork , updateTrackWork} from "../../../database/controller";
+import { updateTrackWork} from "../../../database/controller";
 
 export default async function handler(req, res) {
     connectMongo().catch(()=> res.status(405).json({error:"Error in the Connection"}))
@@ -9,15 +9,15 @@ export default async function handler(req, res) {
 
     switch (method){
         case "GET":
-            getWork(req,res);
+            // getWork(req,res);
             break;
         case "PUT":
-            putWork(req,res)
-            deleteTrackWork(req,res)
-            updateTrackWork(req,res);
+            // putWork(req,res)
+            updateTrackWork(req,res)
+            // deleteTrackWork(req,res);
             break;
         case "DELETE":
-            deleteWork(req,res);
+            // deleteWork(req,res);
             break;
         default:
             res.setHeader('Allow',['GET','POST','PUT','DELETE']);
@@ -25,6 +25,3 @@ export default async function handler(req, res) {
             break;
     }
 }
-
-// bug putwork แล้วมี objectId เพิ่มมา 
-// bug deleteTrackWork แล้วมี objectId เพิ่มมา
