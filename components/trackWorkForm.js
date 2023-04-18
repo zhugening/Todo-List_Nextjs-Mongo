@@ -70,7 +70,7 @@ export default function TrackWorkForm({ formId,formData,setFormData }){
         let updated = Object.assign({}, data, formData)
         // console.log("this is update",updated)
         await UpdateMutation.mutate(updated)
-        console.log("Add already")
+        // console.log("Add already")
         setIsUpdateSucess(true)
     }
 

@@ -36,7 +36,7 @@ export async function postWork(req,res){
         const formData = req.body;
         if(!formData) return res.status(404).json({error: "Form Data Not Provided"})
         Works.create(formData, function(err,data){
-            console.log("Hi insert already")
+            // console.log("Hi insert already")
             return res.status(200).json(data)
         })
     }catch(error){
@@ -52,7 +52,7 @@ export async function putWork(req,res){
         const formData = req.body;
         // console.log("this is fromData",formData)
         if(workId&&formData){
-            console.log("START PutWork GO!!!!")
+            // console.log("START PutWork GO!!!!")
             // const work = await Works.findOneAndUpdate(workId, formData)
             const work = await Works.findByIdAndUpdate(workId, formData)
             res.status(200).json(work)
@@ -73,7 +73,7 @@ export async function deleteWork(req,res){
     try{
         const {workId} = req.query;
         if(workId){
-            console.log("START DeleteWork GO!!!!!")
+            // console.log("START DeleteWork GO!!!!!")
             const work = await Works.findByIdAndDelete(workId)
             return res.status(200).json({ deleted: workId})
         }

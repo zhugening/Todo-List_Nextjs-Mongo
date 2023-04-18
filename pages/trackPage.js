@@ -4,11 +4,13 @@ import Form_Edit from '../components/form_edit'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleChangeAction, deleteAction , trackAction  } from '../redux/reducer'
 import { deleteWork, deleteTrackWork, getWorks } from '../lib/helper'
-import { useQueryClient } from 'react-query'
+import { useQueryClient, useQuery } from 'react-query'
 import ShowTable from '../components/show_tracking'
 import Link from 'next/link'
 import { useState } from 'react'
 import Success from "../components/success"
+
+
 
 export default function Home() {
   const visible = useSelector((state)=> state.app.client.toggleForm)
@@ -16,7 +18,6 @@ export default function Home() {
   const queryclient = useQueryClient();
   const [isSuccess, setIsSucess] = useState(false)
   const dispatch = useDispatch()
-
   
   // function check 'undefined'
   function check_window(){
@@ -34,7 +35,17 @@ export default function Home() {
     }
   }
   const formId = check_window()
+  const { isLoading, isError, data, error } = useQuery(['works', formId],()=> getWork({formId}))
+  const device_number = data?.['device_no']
+  const claim_number = data?.['claim_no']
+  const contract_number = data?.['contract_no']
+  const egat_number = data?.['egat_sn']
+  const status_claim = data?.['status']
+  const part = data?.['equipment']
+  const claim_booking_number = data?.['claim_booking']
 
+
+  
   const deletehandler = async () => {
     if(deleteId && formId){
       // await Works.updateOne({_id: formId}, {
@@ -49,27 +60,6 @@ export default function Home() {
       window.location.reload()
     }
   }
-
-
-//   export async function deleteTrackWork(req,res){
-//     try{
-//         const {workId} = req.query;
-//         const {trackId} = req.body;
-//         if(workId && trackId){
-//             // const work = await Works.findOneAndUpdate(
-//             const work = await Works.findByIdAndUpdate({_id: workId} , {
-//                 $pull:{
-//                     update: {
-//                         _id: trackId
-//                     }
-//                 }
-//             });
-//             return work        
-//         }
-//     }catch(error){
-//         res.status(404).json({error: "Error While Deleting the Work..!"})
-//     }
-// }
 
   const cancelhandler = async () =>{
     // console.log('cancel')
@@ -95,7 +85,8 @@ export default function Home() {
         {/* <button className='mt-5 flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-indigo-800 px-10 py-4 rounded-full'></button> */}
         <Link className = ''
         href ='/'
-        >Back Home</Link>
+        >
+          <button className='cursor flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-indigo-800'>Back Home</button></Link>
 
       </div>
 
@@ -103,6 +94,67 @@ export default function Home() {
         <h1 className='text-xl md:text-5xl text-center font-bold py-10 hover:text-red-500'>
           Claim Tracking Table ติดตามสถานะงานเคลม
         </h1>
+
+        <form className="grid lg:grid-cols-4 w-4/6 gap-4 container mx-auto content-center text-center" >
+            <div className="input-type">
+                <div className={`${
+                  status_claim == "InActive" ? "bg-red-400 ":
+                  status_claim == "InProgress" ? "bg-yellow-500 ":
+                  status_claim == "InComplete" ? "bg-green-500 ":""
+                }border w-full px-5 py-3 focus:outline-none text-white`}>{claim_number}</div>
+            </div>
+
+            <div className="input-type">
+                <div className={`${
+                  status_claim == "InActive" ? "bg-red-400 ":
+                  status_claim == "InProgress" ? "bg-yellow-500 ":
+                  status_claim == "InComplete" ? "bg-green-500 ":""
+                }border w-full px-5 py-3 focus:outline-none text-white`}>{contract_number}</div>
+            </div>
+
+            <div className="input-type">
+                <div className={`${
+                  status_claim == "InActive" ? "bg-red-400 ":
+                  status_claim == "InProgress" ? "bg-yellow-500 ":
+                  status_claim == "InComplete" ? "bg-green-500 ":""
+                }border w-full px-5 py-3 focus:outline-none text-white`}>{egat_number}</div>
+            </div>
+
+            <div className="input-type">
+                <div className={`${
+                  status_claim == "InActive" ? "bg-red-400 ":
+                  status_claim == "InProgress" ? "bg-yellow-500 ":
+                  status_claim == "InComplete" ? "bg-green-500 ":""
+                }border w-full px-5 py-3 focus:outline-none text-white`}>{claim_booking_number}</div>
+            </div>
+
+            <div className="input-type">
+                <div className={`${
+                  status_claim == "InActive" ? "bg-red-400 ":
+                  status_claim == "InProgress" ? "bg-yellow-500 ":
+                  status_claim == "InComplete" ? "bg-green-500 ":""
+                }border w-full px-5 py-3 focus:outline-none text-white`}>{device_number}</div>
+            </div>
+
+            <div className="input-type">
+                <div className={`${
+                  status_claim == "InActive" ? "bg-red-400 ":
+                  status_claim == "InProgress" ? "bg-yellow-500 ":
+                  status_claim == "InComplete" ? "bg-green-500 ":""
+                }border w-full px-5 py-3 focus:outline-none text-white`}>{part}</div>
+            </div>
+
+            <div className="input-type">
+                <div className={`${
+                  status_claim == "InActive" ? "bg-red-400 ":
+                  status_claim == "InProgress" ? "bg-yellow-500 ":
+                  status_claim == "InComplete" ? "bg-green-500 ":""
+                }border w-full px-5 py-3 focus:outline-none text-white`}>{status_claim}</div>
+            </div>
+
+            
+            </form>
+
         {/* {visible ?<Form></Form>: <></>} */}
         {(isSuccess !== false)?<Success message={"Deleted tracking claim Successfully"}></Success>: <></>}
         
@@ -124,6 +176,7 @@ export default function Home() {
         <div className='container mx-auto content-center'>
           {/* <ShowTable></ShowTable> */}
           {/* how to map formId */}
+          
           <ShowTable
           formId = {formId}/>
 
@@ -134,7 +187,6 @@ export default function Home() {
       
   )
 }
-
 
 
 function DeleteComponent({deletehandler, cancelhandler}){

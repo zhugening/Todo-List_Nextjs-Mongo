@@ -15,7 +15,7 @@ export default function ShowTable( {formId} ){
             {/* <Link className='bg-violet-900 hover:bg-violet-500 text-white font-bold py-3 px-5 rounded-full'
             href ='/'
             >Back Home</Link> */}
-        <table className="table-auto">
+        <table className="table-auto container mx-auto content-center">
             <thead>
                 <tr className="bg-gray-600">
                 <th className="border px-10 py-2">
@@ -66,7 +66,7 @@ function Tr({_id, dateUpdate,text, person ,props}){
     const onDelete = ()=>{
         // console.log("Click to Delete")
         if(!visible){
-            console.log(trackId)
+            // console.log(trackId)
             dispatch(deleteAction(trackId))
             // console.log("Click to delete")
             // deleteTrackWork(formId, trackId)

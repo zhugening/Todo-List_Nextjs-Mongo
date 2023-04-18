@@ -10,7 +10,7 @@ const connectMongo = async() =>{
         });
 
         if(connection.readyState == 1){
-            console.log("Database Connected")
+            // console.log("Database Connected")
         }
 
     }catch(errors){
